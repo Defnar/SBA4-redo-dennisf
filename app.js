@@ -44,13 +44,38 @@ function filterList() {
 //helper function to create a new data cell
 function createDataCell(valueToInput) {
   let td = document.createElement("td");
-  td.textContent = valueToInput;
+  if (typeof valueToInput == "object") td.appendChild(valueToInput);
+  else td.textContent = valueToInput;
   return td;
 }
 
 //checks deadline on an item and returns whether it is overdue or in progress
 function deadlineChecker(task) {
   return task.deadline >= new Date() ? "In Progress" : "Overdue";
+}
+
+
+//version 2 of function, for less repitition.  Returns status dropdown box with current status of task as default
+function statusDropdown(taskStatus) {
+  let statusOptions = [
+    { name: "In Progress", className: "text-green-700" },
+    { name: "Completed", className: "text-blue-800" },
+    { name: "Overdue", className: "text-red-800" },
+  ];
+
+  const select = document.createElement("select");
+
+  statusOptions.forEach((listStatus) => {
+    let option = document.createElement("option");
+    option.textContent = listStatus.name;
+    option.className = listStatus.className;
+    if (listStatus.name == taskStatus)  {
+      option.selected = true;
+      select.className = option.className;
+    }
+    select.appendChild(option);
+  });
+  return select;
 }
 
 //page update function
@@ -71,7 +96,7 @@ function renderList() {
     row.appendChild(createDataCell(task.name));
     row.appendChild(createDataCell(task.category));
     row.appendChild(createDataCell(task.deadline.toLocaleString()));
-    row.appendChild(createDataCell(task.status));
+    row.appendChild(createDataCell(statusDropdown(task.status)));
 
     fragment.appendChild(row);
   });
@@ -96,8 +121,7 @@ form.addEventListener("submit", (event) => {
   }
 });
 
-
 //if update is clicked, renders list
 updateButton.addEventListener("click", (event) => {
   renderList();
-})
+});
