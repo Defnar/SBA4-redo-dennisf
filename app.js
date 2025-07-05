@@ -101,7 +101,7 @@ function renderList() {
     if (task.status == "In Progress") task.status = deadlineChecker(task);
 
     let row = document.createElement("tr");
-    row.className = "text-center border border-gray-400";
+    row.className = "task text-center border border-gray-400";
     row.dataset.id = task.id;
     row.appendChild(createDataCell(task.name));
     row.appendChild(createDataCell(task.category));
@@ -138,5 +138,15 @@ form.addEventListener("submit", (event) => {
 
 //if update is clicked, renders list
 updateButton.addEventListener("click", (event) => {
+  renderList();
+});
+
+//listens for dropdown menu update
+taskContainer.addEventListener("change", (event) => {
+  let dropdown = event.target;
+  let trTask= event.target.closest("tr");
+  let listTask = fullTaskList.find((task) => task.id == trTask.dataset.id);
+  listTask.status = dropdown.value;
+  saveData();
   renderList();
 });
