@@ -6,6 +6,7 @@ const updateButton = document.getElementById("update-button");
 const statusFilter = document.getElementById("status-filter");
 const categoryFilter = document.getElementById("category-filter");
 const taskContainer = document.getElementById("task-container");
+const filterContainer = document.getElementById("filter-container");
 
 //populates full task list from local storage or creates a new empty list on page load
 let fullTaskList = JSON.parse(localStorage.getItem("fullTaskList")) || [];
@@ -162,6 +163,7 @@ form.addEventListener("submit", (event) => {
     idCounter++;
     saveData();
     renderList();
+    categoryListBuilder();
     form.reset();
   }
 });
@@ -180,3 +182,10 @@ taskContainer.addEventListener("change", (event) => {
   saveData();
   renderList();
 });
+
+
+//listens for filter changes and changes what viewer sees right away
+filterContainer.addEventListener("change", (event) =>
+{
+  renderList();
+})
