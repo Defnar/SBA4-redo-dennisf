@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="app.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Task Management App</title>
+  </head>
+  <body class="w-4/5 justify-self-center mt-20 max-w-5xl text-lg">
+    <form
+      id="form"
+      class="flex flex-col justify-center gap-1.5 flex-wrap mb-10"
+    >
+      <div
+        id="input-containers"
+        class="flex flex-row justify-center gap-10 flex-wrap"
+      >
+        <input
+          type="text"
+          id="task-name"
+          name="task-name"
+          class="grow basis-2/6 text-center h-6 border border-gray-300"
+          placeholder="New Task"
+        />
+        <input
+          type="text"
+          id="category"
+          name="category"
+          class="grow basis-1/6 text-center h-6 border border-gray-300"
+          placeholder="Category"
+        />
+        <input
+          type="datetime-local"
+          name="deadline"
+          id="deadline"
+          class="h-6"
+        />
+      </div>
+      <button type="submit" class="bg-blue-900 text-white font-bold rounded-xl w-24 self-center">Add Task</button>
+    </form>
+    <div id="filter-bar" class="flex flex-col justify-center mb-20 gap-4">
+      <div id="filter-container" class="flex flex-row justify-center gap-4">
+        <div>
+          <label for="status-filter">Status:</label>
+          <select name="status-filter" id="status-filter" class="text-center">
+            <option selected>All</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+            <option>Overdue</option>
+          </select>
+        </div>
+        <div>
+          <label for="category-filter">Category:</label>
+          <select id="category-filter" name="category-filter" class="text-center">
+            <option selected>All</option>
+          </select>
+        </div>
+      </div>
+      <button id="update-button" class="bg-blue-900 text-white font-bold rounded-xl w-24 self-center">Update</button>
+    </div>
+    <table id="task-container" class="w-full table-auto">
+      <tr>
+        <th>Task name</th>
+        <th>Category</th>
+        <th>Deadline</th>
+        <th>Status</th>
+      </tr>
+      <tr class="text-center">
+        <td>Example Task</td>
+        <td>Example</td>
+        <td>July 6th, 2025</td>
+        <td>
+          <select id="status">
+            <option selected>In Progress</option>
+            <option>Completed</option>
+            <option>Overdue</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
