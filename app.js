@@ -10,19 +10,29 @@ const taskContainer = document.getElementById("task-container");
 //populates full task list from local storage or creates a new empty list on page load
 let fullTaskList = JSON.parse(localStorage.getItem("fullTaskList")) || [];
 
+//loading from json keeps date as a string.  This fixes it
+if (fullTaskList.length > 0) {
+  fullTaskList.forEach((task) => {
+    task.deadline = new Date(task.deadline);
+  });
+}
+let idCounter = localStorage.getItem("id") || 0;
+
 renderList();
 
 //basic function for saving data to local storage
 function saveData() {
   localStorage.setItem("fullTaskList", JSON.stringify(fullTaskList));
+  localStorage.setItem("id", idCounter);
 }
 
 //creates a task object
 class Task {
-  constructor(taskName, category, deadline, status = "In Progress") {
+  constructor(taskName, category, deadline, id, status = "In Progress") {
     this.name = taskName;
     this.category = category;
     this.status = status;
+    this.id = id;
     this.deadline = new Date(deadline);
     console.log(this.deadline);
   }
@@ -54,7 +64,6 @@ function deadlineChecker(task) {
   return task.deadline >= new Date() ? "In Progress" : "Overdue";
 }
 
-
 //version 2 of function, for less repitition.  Returns status dropdown box with current status of task as default
 function statusDropdown(taskStatus) {
   let statusOptions = [
@@ -69,7 +78,7 @@ function statusDropdown(taskStatus) {
     let option = document.createElement("option");
     option.textContent = listStatus.name;
     option.className = listStatus.className;
-    if (listStatus.name == taskStatus)  {
+    if (listStatus.name == taskStatus) {
       option.selected = true;
       select.className = option.className;
     }
@@ -93,6 +102,7 @@ function renderList() {
 
     let row = document.createElement("tr");
     row.className = "text-center border border-gray-400";
+    row.dataset.id = task.id;
     row.appendChild(createDataCell(task.name));
     row.appendChild(createDataCell(task.category));
     row.appendChild(createDataCell(task.deadline.toLocaleString()));
@@ -112,10 +122,15 @@ form.addEventListener("submit", (event) => {
     category.validity.valid &&
     deadline.validity.valid
   ) {
-    let newTask = new Task(taskName.value, category.value, deadline.value);
+    let newTask = new Task(
+      taskName.value,
+      category.value,
+      deadline.value,
+      idCounter
+    );
     fullTaskList.push(newTask);
+    idCounter++;
     saveData();
-    console.log(fullTaskList);
     renderList();
     form.reset();
   }
