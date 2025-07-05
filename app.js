@@ -26,24 +26,23 @@ function categoryListBuilder() {
   categoryList = [];
   categoryList.push("All");
 
-  fullTaskList.forEach((task)=> {
+  fullTaskList.forEach((task) => {
     if (!categoryList.includes(task.category)) {
-      categoryList.push(task.category)
+      categoryList.push(task.category);
     }
-  })
+  });
 
   //builds the list into the filter box for user interaction
   categoryFilter.innerHTML = "";
   let fragment = document.createDocumentFragment();
   categoryList.forEach((category) => {
-    let option = document.createElement("option")
+    let option = document.createElement("option");
     if (category == "All") option.selected = true;
     option.textContent = category;
     fragment.appendChild(option);
-  })
+  });
 
   categoryFilter.appendChild(fragment);
-
 }
 
 //renders list and category search for user side on page load
@@ -55,7 +54,6 @@ function saveData() {
   localStorage.setItem("fullTaskList", JSON.stringify(fullTaskList));
   localStorage.setItem("id", idCounter);
 }
-
 
 //creates a task object
 class Task {
@@ -82,7 +80,7 @@ function filterList() {
   );
 }
 
-//helper function to create a new data cell
+//function to create a new data cell
 function createDataCell(valueToInput) {
   let td = document.createElement("td");
   if (typeof valueToInput == "object") td.appendChild(valueToInput);
@@ -176,16 +174,14 @@ updateButton.addEventListener("click", (event) => {
 //listens for dropdown menu update
 taskContainer.addEventListener("change", (event) => {
   let dropdown = event.target;
-  let trTask= event.target.closest("tr");
+  let trTask = event.target.closest("tr");
   let listTask = fullTaskList.find((task) => task.id == trTask.dataset.id);
   listTask.status = dropdown.value;
   saveData();
   renderList();
 });
 
-
 //listens for filter changes and changes what viewer sees right away
-filterContainer.addEventListener("change", (event) =>
-{
+filterContainer.addEventListener("change", (event) => {
   renderList();
-})
+});
