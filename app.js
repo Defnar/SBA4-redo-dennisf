@@ -18,6 +18,35 @@ if (fullTaskList.length > 0) {
 }
 let idCounter = localStorage.getItem("id") || 0;
 
+let categoryList = [];
+
+//builds a category list for filter box, and then creates dropdown menu for categories
+function categoryListBuilder() {
+  categoryList = [];
+  categoryList.push("All");
+
+  fullTaskList.forEach((task)=> {
+    if (!categoryList.includes(task.category)) {
+      categoryList.push(task.category)
+    }
+  })
+
+  //builds the list into the filter box for user interaction
+  categoryFilter.innerHTML = "";
+  let fragment = document.createDocumentFragment();
+  categoryList.forEach((category) => {
+    let option = document.createElement("option")
+    if (category == "All") option.selected = true;
+    option.textContent = category;
+    fragment.appendChild(option);
+  })
+
+  categoryFilter.appendChild(fragment);
+
+}
+
+//renders list and category search for user side on page load
+categoryListBuilder();
 renderList();
 
 //basic function for saving data to local storage
@@ -25,6 +54,7 @@ function saveData() {
   localStorage.setItem("fullTaskList", JSON.stringify(fullTaskList));
   localStorage.setItem("id", idCounter);
 }
+
 
 //creates a task object
 class Task {
