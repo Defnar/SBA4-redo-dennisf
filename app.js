@@ -10,6 +10,8 @@ const taskContainer = document.getElementById("task-container");
 //populates full task list from local storage or creates a new empty list on page load
 let fullTaskList = JSON.parse(localStorage.getItem("fullTaskList")) || [];
 
+renderList();
+
 //basic function for saving data to local storage
 function saveData() {
   localStorage.setItem("fullTaskList", JSON.stringify(fullTaskList));
@@ -46,9 +48,9 @@ function createDataCell(valueToInput) {
   return td;
 }
 
+//checks deadline on an item and returns whether it is overdue or in progress
 function deadlineChecker(task) {
-  if (task.deadline <= new Date()) return "In Progress";
-  else return "Overdue";
+  return task.deadline >= new Date() ? "In Progress" : "Overdue";
 }
 
 //page update function
@@ -93,3 +95,9 @@ form.addEventListener("submit", (event) => {
     form.reset();
   }
 });
+
+
+//if update is clicked, renders list
+updateButton.addEventListener("click", (event) => {
+  renderList();
+})
