@@ -19,17 +19,15 @@ if (fullTaskList.length > 0) {
 }
 let idCounter = localStorage.getItem("id") || 0;
 
-let categoryList = [];
+let categoryList = new Set();
 
 //builds a category list for filter box, and then creates dropdown menu for categories
 function categoryListBuilder() {
-  categoryList = [];
-  categoryList.push("All");
+  categoryList.clear();
+  categoryList.add("All");
 
   fullTaskList.forEach((task) => {
-    if (!categoryList.includes(task.category)) {
-      categoryList.push(task.category);
-    }
+    categoryList.add(task.category);
   });
 
   //builds the list into the filter box for user interaction
