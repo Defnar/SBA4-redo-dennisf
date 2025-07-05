@@ -13,6 +13,8 @@
 - 2 things, researching Javascript and testing out different things in javascript.  This was solved through placing an if statement in the helper function for creating <td> elements, where ```if(typeof input == "object")``` returns true, it is appended to the node instead of added to text content.
 
 ## 3. What would I improve
-- Adding more features, definitely.  If I had time, and better visual design abilities, I would figure out how to add checkboxes and delete buttons in a visually appealing manner.
+- Adding more features, definitely.  If I had time, and better visual design abilities, I would figure out how to add checkboxes and delete buttons in a visually appealing manner.  Allow for editting multiple statuses and objects simultaneously
 - This is more a knowledge thing, but the code still feels inefficient/lengthy.  I would take more time to research more javascript and html, and use that to refactor the code into something more compact and understandable.
-- following this logic, the category list builder seems messy, and I'm sure there's a far more efficient way of doing this, as one example.  Doing research after the project I came across Set as one solution, but I'll need to read more documentation on this to implement it and refactor my category list builder.
+- following this logic, the category list builder seems messy, and I'm sure there's a far more efficient way of doing this, as one example.
+  - Originally this was the case, however I did some research and came across javascript sets.  I implemented set functionality into this instead of using it as a list.
+  - Another option, and I think would probably be best if I wanted to refactor, is to run building the list using logic to check if category is in the category list, and creating an option out of each unique one simultaneously rather than running 2 foreach loops back to back.  This would probably cut down runtime and be more efficient on larger applications
