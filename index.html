@@ -86,25 +86,14 @@
         Update
       </button>
     </div>
-    <table id="task-container" class="w-full table-auto">
+    <table id="task-table" class="w-full table-auto">
       <tr class="bg-slate-200 border border-gray-400">
         <th>Task name</th>
         <th>Category</th>
         <th>Deadline</th>
         <th>Status</th>
       </tr>
-      <tr class="text-center border border-gray-400">
-        <td>Example Task</td>
-        <td>Example</td>
-        <td>July 6th, 2025</td>
-        <td>
-          <select id="status">
-            <option selected>In Progress</option>
-            <option>Completed</option>
-            <option>Overdue</option>
-          </select>
-        </td>
-      </tr>
+      <tbody id="task-container"></tbody>
     </table>
   </body>
 </html>
