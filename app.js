@@ -22,7 +22,6 @@ let idCounter = localStorage.getItem("id") || 0;
 let categorySavedList = JSON.parse(localStorage.getItem("categoryList")) || [
   "All",
 ];
-console.log(categorySavedList);
 
 let categoryList = new Set(categorySavedList);
 
