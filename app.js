@@ -19,17 +19,15 @@ if (fullTaskList.length > 0) {
 }
 let idCounter = localStorage.getItem("id") || 0;
 
-let categoryList = new Set();
+let categorySavedList = JSON.parse(localStorage.getItem("categoryList")) || [
+  "All",
+];
+console.log(categorySavedList);
+
+let categoryList = new Set(categorySavedList);
 
 //builds a category list for filter box, and then creates dropdown menu for categories
-function categoryListBuilder() {
-  categoryList.clear();
-  categoryList.add("All");
-
-  fullTaskList.forEach((task) => {
-    categoryList.add(task.category);
-  });
-
+function categoryDropdownBuilder() {
   //builds the list into the filter box for user interaction
   categoryFilter.innerHTML = "";
   let fragment = document.createDocumentFragment();
@@ -44,12 +42,13 @@ function categoryListBuilder() {
 }
 
 //renders list and category search for user side on page load
-categoryListBuilder();
+categoryDropdownBuilder();
 renderList();
 
 //basic function for saving data to local storage
 function saveData() {
   localStorage.setItem("fullTaskList", JSON.stringify(fullTaskList));
+  localStorage.setItem("categoryList", JSON.stringify([...categoryList]));
   localStorage.setItem("id", idCounter);
 }
 
@@ -156,10 +155,11 @@ form.addEventListener("submit", (event) => {
       idCounter
     );
     fullTaskList.push(newTask);
+    categoryList.add(category.value);
     idCounter++;
     saveData();
     renderList();
-    categoryListBuilder();
+    categoryDropdownBuilder();
     form.reset();
   }
 });
