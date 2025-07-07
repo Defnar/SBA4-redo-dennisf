@@ -18,5 +18,6 @@
 - following this logic, the category list builder seems messy, and I'm sure there's a far more efficient way of doing this, as one example.
   - Originally this was the case, however I did some research and came across javascript sets.  I implemented set functionality into this instead of using it as a list.
   - Another option, and I think would probably be best if I wanted to refactor, is to run building the list using logic to check if category is in the category list, and creating an option out of each unique one simultaneously rather than running 2 foreach loops back to back.  This would probably cut down runtime and be more efficient on larger applications
+    - This was refactored in my latest version.  I realized I didn't need to rebuild the set on every update, as there is no reason to recreate the set every run.  This would be the case if tasks were deleteable, but I decided not to add that feature this time.
 - Better categorization of code.  I placed all of my event listeners in one location in the javascript code, however everything else is still a bit messy.  I'm just not sure how to categorize at this time, maybe something like: //Objects// | //Helper Functions// | //Startup calls//?  What are general industry practices for organization of code?
 - figure out a way to remove the seconds from tolocalestring on date() function
